@@ -1,0 +1,10 @@
+version: '2.3'
+
+services:
+  cs848w20:
+    build:
+      context: activeclean/
+    volumes:
+      - ./activeclean/:/activeclean
+    working_dir: /activeclean
+    command: tail -f /dev/null
