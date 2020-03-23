@@ -2,3 +2,5 @@ activeclean/*
 boostclean/*
 db/*
 src/*
+magellan/*
+datasets/*

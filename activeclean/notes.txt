@@ -1,6 +1,0 @@
-In activeclean_sklearn (line 5) renamed 
-	from sklearn.cross_validation import train_test_split
-to
-	from sklearn.model_selection import train_test_split
-
-

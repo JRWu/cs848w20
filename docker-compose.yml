@@ -3,8 +3,17 @@ version: '2.3'
 services:
   cs848w20:
     build:
-      context: activeclean/
+      context: src/
     volumes:
-      - ./activeclean/:/activeclean
-    working_dir: /activeclean
+      - ./src/:/src
+    working_dir: /src
+    command: tail -f /dev/null
+
+  cs848w20_magellan:
+    build:
+      context: magellan/
+    volumes:
+      - ./magellan/:/magellan
+      - ./datasets/:/datasets
+    working_dir: /magellan
     command: tail -f /dev/null
