@@ -1,7 +1,6 @@
-# A docker-compose setup for evaluating cs848w20 project.
-# Semi-supervised learning for Entity Matching.
+# cs848w20: Semi-supervised learning for Entity Matching.
 
-# Setup & Installation
+## Setup & Installation
 NOTE: This guide is intended for linux based systems such as Ubuntu 16.04 and 18.04, however any system that can run docker & docker-compose will work.
 
 1. Install stable docker-ce (if docker is not already installed on your system)
