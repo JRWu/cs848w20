@@ -15,5 +15,5 @@ services:
     volumes:
       - ./magellan/:/magellan
       - ./datasets/:/datasets
-    working_dir: /magellan
+    working_dir: /root
     command: tail -f /dev/null
