@@ -4,3 +4,6 @@ db/*
 src/*
 magellan/*
 datasets/*
+jedai/*
+pydedupe/*
+dedupe/*
