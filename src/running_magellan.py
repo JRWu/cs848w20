@@ -2,7 +2,7 @@
 # Invoke this script from /root
 
 import sys
-sys.path.append('/magellan/py_entitymatching-master/py_entitymatching/')
+sys.path.append('/magellan/py_entitymatching/py_entitymatching/')
 
 
 import py_entitymatching as em
