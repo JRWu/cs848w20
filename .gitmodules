@@ -1,0 +1,3 @@
+[submodule "magellan/py_entitymatching"]
+	path = magellan/py_entitymatching
+	url = git@github.com:anhaidgroup/py_entitymatching.git

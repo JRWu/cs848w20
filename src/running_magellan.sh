@@ -10,7 +10,6 @@ make all
 make magellan
 
 # Within the docker container
-# From /src/magellan
 cd /magellan/py_entitymatching-master/
 
 # Install the dependencies

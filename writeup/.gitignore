@@ -1,0 +1,10 @@
+*.zip
+*.aux
+*.bbl
+*.blg
+*.backup
+*.ent
+*.sty
+*.gz
+*.log
+*.dvi
