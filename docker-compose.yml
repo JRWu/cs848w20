@@ -15,6 +15,7 @@ services:
     volumes:
       - ./magellan/:/magellan
       - ./datasets/:/datasets
+      - ./src/:/src
     working_dir: /root
     command: tail -f /dev/null
 
@@ -28,13 +29,13 @@ services:
     working_dir: /dedupe
     command: tail -f /dev/null
 
-  cs848w20_jedai:
-    build:
-      context: jedai/
-    volumes:
-      - ./jedai/:/jedai
-      - ./datasets/:/datasets
-    working_dir: /root
-    command: tail -f /dev/null
-    ports:
-      - 8080:8080
+#  cs848w20_jedai:
+#    build:
+#      context: jedai/
+#    volumes:
+#      - ./jedai/:/jedai
+#      - ./datasets/:/datasets
+#    working_dir: /root
+#    command: tail -f /dev/null
+#    ports:
+#      - 8080:8080
