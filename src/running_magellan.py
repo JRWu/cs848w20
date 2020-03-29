@@ -30,7 +30,7 @@ len(C)
 S = em.sample_table(C, 450)
 
 
-G = em.label_table(S, 'gold') # This step raises an error
+#G = em.label_table(S, 'gold') # This step raises an error
 
 
 path_G = em.get_install_path() + os.sep + 'datasets' + os.sep + 'end-to-end' + os.sep + 'restaurants/lbl_restnt_wf1.csv'
