@@ -58,51 +58,74 @@ University of Waterloo
 \subsection*{Abstract}
 
 
-\section{Introduction}
 
+\section{Introduction}
+Entity matching (EM), also known as Entity Resolution (ER), in the world of data management refers to resolving duplicate entities to a single entity. Magellan is an end-to-end entity matching framework that utilizes machine learning to perform entity matching. Active learning in the context of machine learning describes the process of a user actively providing labels for model training. This paradigm of active human labeling is referred to as human-in-the-loop machine learning. In this following paper we are interested in applying active learning techniques to machine learning for Entity Matching. 
+
+
+We provide a comparison of Entity Matching across popular systems such as Magellan, Dedupe.io and JedAI. Comparisons are conducted with the standard DBLP-ACM dataset. Additionally, we provide a fully reproducible and containerized environment for execution requiring no external dependencies other than Docker (reference here). Finally, we extend Magellan with semi-supervised learning and demonstrate that comparable accuracy for EM can be achieved with less samples. 
+\\
 
 We make the following contributions:
 \begin{itemize}
-  \item A comparison of EM 
-  \item A framework for evaluation
+  \item An evaluation of EM across common systems
+  \item A framework for reproducible execution
+  \item An active-learning extension for EM (semi-supervised)
 \end{itemize}
 
-\section{Methods}
 
-\subsection{Environment}
 
-\subsection{Docker}
+\section{Related Work}
+Perhaps don't need subsections here. A list may be sufficient.
+
+Talk about dedupe primarily since it is what is being utilized
+
+There has been much work done throughout the years to address entity matching. Efforts ranging from traditional machine learning solutions such as 
+
+Talk about structured and unstructured EM
+
 
 \subsection{Magellan}
+Magellan is described as an end-to-end EM framework as it provides the user with a toolset to conduct EM from the beginning of the workflow to the end. 
+
+tools to support the user through various EM scenarios, provides user guides 
+
 
 \subsection{Dedupe}
+Discuss why they have no publication
 
+
+\subsection{JedAI}
+Talk about what this is.
+
+
+\section{Methods}
+Have a section on why the DBLP-ACM benchmark was used.
+Have a section on why we used Docker.
+Describe what was done to extend. (Active learning part)
 
 
 \section{Results}
-\subsection{Magellan}
+Describe the performance of using ActiveLearning in Magellan.
 
 
 \noindent\fbox{
     \parbox{\columnwidth}{
     	\centering
-        \textit{Add Some Result Here}
+        \textit{Add Key Magellan Result/Conclusion Here}
     }
 }
 \\\\
 
+\section{Challenges}
+Describe the ease of use of each system here.
+Describe the potential performance of each system here.
+
+Initially the challenge was determining why Magellan had not attempted to build 
 
 
-\subsection{Dedupe}
-\\
 
-\noindent\fbox{
-    \parbox{\columnwidth}{
-    	\centering
-        \textit{Add Dedupe Result Here}
-    }
-}
-\\\\
+
 
 
 
