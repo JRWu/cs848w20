@@ -60,10 +60,9 @@ University of Waterloo
 
 
 \section{Introduction}
-Entity matching (EM), also known as Entity Resolution (ER), in the world of data management refers to resolving duplicate entities to a single entity. Magellan is an end-to-end entity matching framework that utilizes machine learning to perform entity matching. Active learning in the context of machine learning describes the process of a user actively providing labels for model training. This paradigm of active human labeling is referred to as human-in-the-loop machine learning. In this following paper we are interested in applying active learning techniques to machine learning for Entity Matching. 
+Entity matching (EM), also known as Entity Resolution (ER), in the world of data management refers to resolving duplicate entities to a single entity. Matching may be done in a probabilistic or a deterministic (rule-based) manner.  Magellan is an end-to-end entity matching framework that utilizes machine learning to perform both manners of entity matching. Active learning in the context of machine learning describes the process of a user actively providing labels for model training. This paradigm of active human labeling is referred to as human-in-the-loop machine learning. In this following paper we are interested in applying active learning techniques to machine learning for Entity Matching. 
 
-
-We provide a comparison of Entity Matching across popular systems such as Magellan, Dedupe.io and JedAI. Comparisons are conducted with the standard DBLP-ACM dataset. Additionally, we provide a fully reproducible and containerized environment for execution requiring no external dependencies other than Docker (reference here). Finally, we extend Magellan with semi-supervised learning and demonstrate that comparable accuracy for EM can be achieved with less samples. 
+We provide a comparison of Entity Matching across popular systems such as Magellan and Dedupe.io \cite{bilenko2004learnable}. Comparisons are conducted with two datasets BUY and RESTAURANT (add names for these later). Additionally, we provide a fully reproducible and containerized environment for execution requiring no external dependencies other than Docker \cite{docker:2014}. Finally, we extend Magellan with semi-supervised learning and demonstrate that comparable accuracy for EM can be achieved with less samples. 
 \\
 
 We make the following contributions:
@@ -81,22 +80,36 @@ Perhaps don't need subsections here. A list may be sufficient.
 Talk about dedupe primarily since it is what is being utilized
 
 There has been much work done throughout the years to address entity matching. Efforts ranging from traditional machine learning solutions such as 
-
 Talk about structured and unstructured EM
 
+In this work, we focus on structured entity matching when resolving two csv tables.
 
 \subsection{Magellan}
-Magellan is described as an end-to-end EM framework as it provides the user with a toolset to conduct EM from the beginning of the workflow to the end. 
+Magellan is described as an end-to-end EM framework as it provides the user with a toolset to conduct EM from the beginning of the workflow through the end. These tools include user guides, strategies for blocking, sampling and matching. The following is a description of the Magellan workflow.
 
-tools to support the user through various EM scenarios, provides user guides 
+Initially, Magellan computes the cartesian product of both tables. From this resultant set of ordered pairs, an overlap blocker is applied for a resulting set C. The blocking technique used within Magellan is an overlap blocking one. Attributes are tokenized into q-grams and blocked together if they share 1 minimum overlap bewteen q-grams. Subsequently, a sample denoted by S of 450 tuples is taken from this ordered set C. Users are expected to add labels to these, denoting if they are identical entities or not. 
+
+I and J are computed from this labeled set S.
+
+I is training set. J is testing set.
+
+Feature vectors are then extracted from tables I and J. An example of a feature in this instance would be a function that maps a tuple pair into a value. If the attributes are textual, a feature could be a 3-gram jaccard score. Sample set S is thus split into training and testings sets, and six various machine learning strategies are applied to match values. The six included are Decision Tree, Support Vector Machine, Random Forest, Logistic Regression, Linear Regression and Naive Bayes. Each matcher is evaluated on the test set J and the test set I for precision and recall. 
+
+(verify if true) In theory, the matcher can then be applied to the entire dataset. 
 
 
-\subsection{Dedupe}
+
+
+
+\subsection{Dedupe.io}
 Discuss why they have no publication
+Dedupe.io is available as both an open source and as a paid service for EM. We will focus on the open source implementation implementation of dedupe in this paper. 
+
+The workflow of Dedupe.io is 
+
+The bread and butter of Dedupe.io consists of 3 parts, a learnable matching function, an active labeling component and a clustering component. 
 
 
-\subsection{JedAI}
-Talk about what this is.
 
 
 \section{Methods}
