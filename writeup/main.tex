@@ -60,9 +60,15 @@ University of Waterloo
 
 
 \section{Introduction}
-Entity matching (EM), also known as Entity Resolution (ER), in the world of data management refers to resolving duplicate entities to a single entity. Matching may be done in a probabilistic or a deterministic (rule-based) manner.  Magellan is an end-to-end entity matching framework that utilizes machine learning to perform both manners of entity matching. Active learning in the context of machine learning describes the process of a user actively providing labels for model training. This paradigm of active human labeling is referred to as human-in-the-loop machine learning. In this following paper we are interested in applying active learning techniques to machine learning for Entity Matching. 
+Entity matching (EM), also known as Entity Resolution (ER), in the world of data management refers to resolving duplicate entities to a single entity. Matching may be done in a probabilistic or a deterministic (rule-based) manner. According to our survey, many end-to-end machine learning based methods have been applied to this problem such as Magellan and JedAI.
 
-We provide a comparison of Entity Matching across popular systems such as Magellan and Dedupe.io \cite{bilenko2004learnable}. Comparisons are conducted with two datasets BUY and RESTAURANT (add names for these later). Additionally, we provide a fully reproducible and containerized environment for execution requiring no external dependencies other than Docker \cite{docker:2014}. Finally, we extend Magellan with semi-supervised learning and demonstrate that comparable accuracy for EM can be achieved with less samples. 
+However, traditional supervised learning method in entity matching has a problem: lacking of labels on training dataset. Usually there are two ways to solve the problem: training on other labeled dataset, or labeling the training dataset manually. The first one may not able to train a good model if the two training dataset is not similar. The second one needs a lot of human labor. To find a good solution to this problem, we propose to use active learning, a semi-supervised learning method, to do the labeling.
+
+Active learning in the context of machine learning describes the process of a user actively providing labels for model training. This paradigm of active human labeling is referred to as human-in-the-loop machine learning, which is, the model select the most informative sample to be labeled by human and train on these sample, repeatedly. We found a method called Dedupe.io has applied active learning in entity matching, but they are also facing a problem of low recall.
+
+%paper of Magellan?%
+
+In this paper, we first provide a comparison of Entity Matching across popular Magellan and Dedupe.io \cite{bilenko2004learnable}. Comparisons are conducted with two datasets BUY and RESTAURANT (add names for these later). Additionally, we provide a fully reproducible and containerized environment for execution requiring no external dependencies other than Docker \cite{docker:2014}. Finally, we extend Magellan with semi-supervised learning and demonstrate that comparable accuracy for EM can be achieved with less samples. 
 \\
 
 We make the following contributions:
@@ -72,17 +78,18 @@ We make the following contributions:
   \item An active-learning extension for EM (semi-supervised)
 \end{itemize}
 
-
+\section{Problem definition}
+In this work, we focus on structured entity matching when resolving two csv tables. Given two csv tables with same structure, our aim is to combine them into a single table. During the combination, our method can can detect the same entity that appears in both two csv tables and delete one of them, which is also called deduplication. After the combination, it will return a table that has information of two tables and has no duplicate entities.
 
 \section{Related Work}
-Perhaps don't need subsections here. A list may be sufficient.
+%Perhaps don't need subsections here. A list may be sufficient.
 
-Talk about dedupe primarily since it is what is being utilized
+%Talk about dedupe primarily since it is what is being utilized
 
 There has been much work done throughout the years to address entity matching. Efforts ranging from traditional machine learning solutions such as 
 Talk about structured and unstructured EM
 
-In this work, we focus on structured entity matching when resolving two csv tables.
+
 
 \subsection{Magellan}
 Magellan is described as an end-to-end EM framework as it provides the user with a toolset to conduct EM from the beginning of the workflow through the end. These tools include user guides, strategies for blocking, sampling and matching. The following is a description of the Magellan workflow.
@@ -95,7 +102,7 @@ I is training set. J is testing set.
 
 Feature vectors are then extracted from tables I and J. An example of a feature in this instance would be a function that maps a tuple pair into a value. If the attributes are textual, a feature could be a 3-gram jaccard score. Sample set S is thus split into training and testings sets, and six various machine learning strategies are applied to match values. The six included are Decision Tree, Support Vector Machine, Random Forest, Logistic Regression, Linear Regression and Naive Bayes. Each matcher is evaluated on the test set J and the test set I for precision and recall. 
 
-(verify if true) In theory, the matcher can then be applied to the entire dataset. 
+%(verify if true) In theory, the matcher can then be applied to the entire dataset. 
 
 
 
@@ -113,12 +120,16 @@ The bread and butter of Dedupe.io consists of 3 parts, a learnable matching func
 
 
 \section{Methods}
-Have a section on why the DBLP-ACM benchmark was used.
-Have a section on why we used Docker.
-Describe what was done to extend. (Active learning part)
 
+\subsection{Docker}
+Have a section on why we used Docker.
+
+\subsection{Active Learning}
+Our method applied active learning on Magellan: In Magellan, the user 
 
 \section{Results}
+Have a section on why the DBLP-ACM benchmark was used.
+
 Describe the performance of using ActiveLearning in Magellan.
 
 
