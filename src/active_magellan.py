@@ -75,11 +75,13 @@ CLF = {"DecisionTree": dt, "SVM": svm, "RandomForest":rf, "LogisticRegression":l
 for clf_name in CLF:
   for strategy_name in strategies:
     clf = CLF[clf_name]
-    batch_size = 10
+    batch_size = 4
     rounds = 5
     F = Features
-
-    anno_batch = RS(Features,batch_size)    # 第一批标注样本只能随机选取
+    while True:
+        anno_batch = RS(Features,batch_size)    # 第一批标注样本只能随机选取
+        if sum(Features['gold'][anno_batch]) > 0:
+            break
     train_index = anno_batch
     F = F.drop(anno_batch)
     for i in range(rounds-1):
