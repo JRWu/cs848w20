@@ -60,13 +60,13 @@ University of Waterloo
 
 
 \section{Introduction}
-Entity matching (EM), also known as Entity Resolution (ER), in the world of data management refers to resolving duplicate entities to a single entity. Matching may be done in a probabilistic or a deterministic (rule-based) manner. According to our survey, many end-to-end machine learning based methods have been applied to this problem such as Magellan and JedAI \cite{papadakis2018jedai}.
+Entity matching (EM), also known as Entity Resolution (ER), in the world of data management refers to resolving duplicate entities to a single entity. Matching may be done in a probabilistic or a deterministic (rule-based) manner. According to our survey, many end-to-end machine learning based methods have been applied to this problem such as Magellan, Data Tamer, JedAI to name a few. \cite{konda2016magellan, stonebraker2013data, papadakis2018jedai}.
 
 However, traditional supervised learning methods in entity matching have a problem. They generally lack labels for training. Usually there are two ways to solve the problem: training on other labeled datasets, or labeling the training dataset manually. The first approach may fail to train a representative generalized model if the two training datasets are not similar. The second one requires a non-trivial amount of human labor. To find a good solution to this problem, we propose to use active learning, a semi-supervised learning method, to do the labeling \cite{settles2009active}.
 
 Active learning in the context of machine learning describes the process of a user actively providing labels for model training. This paradigm of active human labeling is referred to as human-in-the-loop machine learning, which is, the model selects the most informative sample to be labeled by the human and training is conducted with these samples. We found a method called Dedupe.io which has applied active learning in entity matching, but we found that they have low recall. 
 
-In our paper, we first provide a comparison of Entity Matching across popular packages such as Magellan and Dedupe.io \cite{bilenko2004learnable, konda2016magellan}. Comparisons are conducted with two datasets BUY and RESTAURANT (add names for these later). Additionally, we provide a fully reproducible and containerized environment for execution requiring no external dependencies other than Docker \cite{docker:2014}. Finally, we propose EMSS(Entity Matching in a Semi-Supervised way) by extending Magellan with semi-supervised learning and demonstrate that comparable accuracy for EM can be achieved with less samples.
+In our paper, we first provide a comparison of Entity Matching across popular packages such as Magellan and Dedupe.io \cite{bilenko2004learnable, konda2016magellan}. Comparisons are conducted with two datasets ABT\_BUY and RESTAURANTS. Additionally, we provide a fully reproducible and containerized environment for execution requiring no external dependencies other than Docker \cite{docker:2014}. Finally, we propose EMSS(Entity Matching in a Semi-Supervised way) by extending Magellan with semi-supervised learning and demonstrate that comparable accuracy for EM can be achieved with less samples.
 \\
 
 We make the following contributions:
@@ -101,7 +101,7 @@ According to our survey, Dedupe.io is the only EM method that applies active lea
 \section{Methods}
 
 \subsection{Docker}
-Docker is a virtual-machine like system where each container (vm) offers a consistent and reproducible execution environment. Docker-compose is a standard for defining different Docker containers. By offering our code in a Git repository paired with a Docker configuration for each tool, each project can be pulled into a host machine and run + evaluated with less than 2 lines of code. Additionally, the dependencies for each tool are different, with  Magellan and Dedupe.io requiring differing numpy versions in addition to other differences. Thus, with our docker-compose setup we are able to evaluate all our tools simultaneously on a single host machine.
+Docker is a virtual-machine like system where each container (vm) offers a consistent and reproducible execution environment. Docker-compose is a standard for defining different Docker containers. By offering our code in a Git repository paired with a Docker configuration for each tool, each project can be pulled into a host machine and run + evaluated with few lines of code. Additionally, the dependencies for each tool are different, with  Magellan and Dedupe.io requiring differing numpy versions in addition to other differences. Thus, with our docker-compose setup we are able to evaluate all our tools simultaneously on a single host machine.
 
 \subsection{Active Learning}
 Active learning is a semi-supervised machine learning framework that can interactively obtain labels for training dataset. The reason we need active learning is that there are always available datasets but the labels for them are not always available. In entity matching problems, usually it is very hard to have large labeled datasets to train a machine learning model. With the same limited labeled data, if one data contains more information, it is more likely to train a stronger model. Hence, we propose Entity Matching in a Semi-Supervised way, or EMSS for brevity. We will apply active learning to improve Magellan. 
@@ -115,12 +115,11 @@ EMSS divides the labeling process into several rounds. For each round, it asks a
 \begin{figure}[H]
 \centering
 \includegraphics[width=3in]{figures/abt_buy_venn.png}
-\caption{ABT BUY Entity Overlap}
+\caption{ABT\_BUY Entity Overlap}
 \label{fig:abt-buy-png}
 \end{figure}
 
-This dataset represents two records kept of electronics. There are 4 attributes in this dataset, [\textbf{id, name, description, price}]. This is a dataset referring to electronics and their prices. As referenced by Figure \ref{fig:abt-buy-png}, the ABT\_BUY primarily consists of overlapping entities. There are a total of 1076 overlapping entities between ABT and BUY with 16 entities in BUY that are not present in ABT.
-
+The \textbf{ABT\_BUY} dataset represents two records kept of electronics. There are 4 attributes in this dataset, [\textbf{id, name, description, price}]. This is a dataset referring to electronics and their prices. Attributes name and description are highly variable and price may be absent in tuples between the two tables. As referenced by Figure \ref{fig:abt-buy-png}, ABT\_BUY primarily consists of overlapping entities. There are a total of 1076 overlapping entities between ABT and BUY with 16 entities in BUY that are not present in ABT.
 
 \begin{figure}[H]
 \centering
@@ -129,14 +128,39 @@ This dataset represents two records kept of electronics. There are 4 attributes 
 \label{fig:restaurants-png}
 \end{figure}
 
-This dataset represents restaurants listed by two different review platforms. There are 6 attributes in this dataset, [\textbf{id, name, addr, city, phone, type}]. As highlighted by Figure \ref{fig:restaurants-png}, there are only 112 common entities between the two, with 421 unique entities in Fodors and 219 unique entities in Zagats.
+The \textbf{RESTAURANTS} dataset represents restaurants listed by two different review platforms. There are 6 attributes in this dataset, [\textbf{id, name, addr, city, phone, type}]. All attributes in both CSVs are present and differences are not too variable between the two. As highlighted by Figure \ref{fig:restaurants-png}, there are only 112 common entities between the two, with 421 unique entities in Fodors and 219 unique entities in Zagats.
 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=3in]{figures/figure_1_f1.jpg}
+\caption{F1 Scores of EMSS on RESTAURANTS dataset}
+\label{fig:restaurants-png}
+\end{figure}
+
+This figure is a description of the F1 scores on the RESTAURANTS dataset. The batch size was 4 and the number of active learning rounds was 5. 
 
 
 \noindent\fbox{
     \parbox{\columnwidth}{
     	\centering
-        \textit{Add Key Magellan Result/Conclusion Here}
+        \textit{EMSS boosts the F1 score on all classifiers except for Linear Regression. }
+    }
+}
+\\\\
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=3in]{figures/figure_2_barplot.png}
+\caption{Precision vs Recall Barplot}
+\label{fig:restaurants-png}
+\end{figure}
+
+
+\noindent\fbox{
+    \parbox{\columnwidth}{
+    	\centering
+        \textit{EMSS is equivalent to Magellan on the ABT\_BUY dataset and is superior to Dedupe.io in terms of recall on low training samples. (n=20)}
     }
 }
 \\\\
@@ -151,7 +175,6 @@ As we only used two different datasets, we are unable to say that active learnin
 We did not experiment with aggregation of multiple different blocking functions. A future direction of work would be to conduct an empirical evaluation of permutations of different blocking functions and investigate whether or not our observations change. 
 
 The entity matcher in Magellan is the best performing matcher from one of the following: Decision Tree, Support Vector Machine, Random Forest, Logistic Regression, Linear Regression and Naive Bayes. Despite how optimized the training data selection becomes for each of these methods, the downstream matching of entities will be limited by the same drawbacks of each of the aforementioned machine learning methods. In structured data, the assumptions of these methods generally hold, however there are other methods that work better on unstructured data such as DeepER and others \cite{ebraheem2017deeper, mudgal2018deep}.
-
 
 \section{Availability}\label{Availability}
 All relevant scripts and data can be retireved from the following repository:

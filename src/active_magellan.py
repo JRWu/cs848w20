@@ -42,6 +42,12 @@ G = em.read_csv_metadata(path_G,
 print('Length is ' + str(len(G)))
 
 #print(G)
+list(G.columns)
+list(A.columns)
+list(B.columns)
+
+
+
 
 dt = em.DTMatcher(name='DecisionTree', random_state=0)
 svm = em.SVMMatcher(name='SVM', random_state=0, probability=True)

@@ -41,7 +41,7 @@ def linkPairs(filename, rowname) :
 
 clusters = 'data_matching_output.csv'
 
-true_dupes = linkPairs(clusters, 'unique_id')
+true_dupes = linkPairs(clusters, 'id')
 test_dupes = linkPairs(clusters, 'Cluster ID')
 
 evaluateDuplicates(test_dupes, true_dupes)
