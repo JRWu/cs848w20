@@ -23,7 +23,7 @@
 
 % This version uses the latex2e styles, not the very ancient 2.09 stuff.
 \documentclass[letterpaper,twocolumn,10pt]{article}
-\usepackage{usenix,epsfig,endnotes}
+\usepackage{usenix,epsfig,endnotes,float}
 \begin{document}
 
 %don't want date printed
@@ -87,7 +87,7 @@ Magellan is described as an end-to-end EM framework as it provides the user with
 
 Initially, Magellan computes the cartesian product of both tables. From this resultant set of ordered pairs, an overlap blocker is applied for a resulting set C. The blocking technique used within Magellan is an overlap blocker. Attributes are tokenized into q-grams and blocked together if they share 1 minimum overlap between q-grams. Subsequently, a sample denoted by S of 450 tuples is taken from this ordered set C. Users are expected to add labels to these, denoting if they are identical entities or not.
 
-I and J are computed from this labeled set S. 
+I and J are computed from this labeled set S.
 
 I is the training set. J is the testing set.
 
@@ -110,9 +110,27 @@ Active learning is a semi-supervised machine learning framework that can interac
 EMSS divides the labeling process into several rounds. For each round, it asks a human a batch of pairs to be the same or not. At the first round, it randomly selects pairs from the whole dataset. For the next several rounds, EMSS will first use the trained model to test the whole dataset. Based on the result, there are three ways of sampling: random sampling(RS), less confident(LC) and breaking ties(BT). Random sampling is like what we do at first round: randomly select a batch of pairs. Less confident is the selection of samples which are less confident, that is, the probability value of any class is very low. Breaking ties is the boundary region selection between two classes, that is, the probability value of most probable two classes are very close.
 
 \section{Results}
-Have a section on why the DBLP-ACM benchmark was used.
+\subsection{Datasets}
 
-Describe the performance of using ActiveLearning in Magellan.
+\begin{figure}[H]
+\centering
+\includegraphics[width=3in]{figures/abt_buy_venn.png}
+\caption{ABT BUY Entity Overlap}
+\label{fig:abt-buy-png}
+\end{figure}
+
+This dataset represents two records kept of electronics. There are 4 attributes in this dataset, [\textbf{id, name, description, price}]. This is a dataset referring to electronics and their prices. As referenced by Figure \ref{fig:abt-buy-png}, the ABT\_BUY primarily consists of overlapping entities. There are a total of 1076 overlapping entities between ABT and BUY with 16 entities in BUY that are not present in ABT.
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=3in]{figures/restaurants_venn.png}
+\caption{Restaurants Entity Overlap}
+\label{fig:restaurants-png}
+\end{figure}
+
+This dataset represents restaurants listed by two different review platforms. There are 6 attributes in this dataset, [\textbf{id, name, addr, city, phone, type}]. As highlighted by Figure \ref{fig:restaurants-png}, there are only 112 common entities between the two, with 421 unique entities in Fodors and 219 unique entities in Zagats.
+
 
 
 \noindent\fbox{
@@ -140,6 +158,8 @@ All relevant scripts and data can be retireved from the following repository:
 \begin{center}
 {\tt https://github.com/JRWu/cs848w20}
 \end{center}
+
+
 
 {\footnotesize \bibliographystyle{acm}
 
