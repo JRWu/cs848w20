@@ -51,25 +51,21 @@ len(C)
 #S.to_csv(r'/datasets/buy_sell/S.csv',index=False)
 
 # Did some labeling magic offline here
-G = em.read_csv_metadata('/datasets/buy_sell/abtbuy_goldstandard.csv', 
+G = em.read_csv_metadata('/datasets/buy_sell/G_sampled.csv', 
                          key='_id',
                          ltable=A, rtable=B, 
                          fk_ltable='ltable_id', fk_rtable='rtable_id')
 print('Length is ' + str(len(G)))
 
 
-
-
-dt = em.DTMatcher(name='DecisionTree', random_state=0)
-svm = em.SVMMatcher(name='SVM', random_state=0, probability=True)
 rf = em.RFMatcher(name='RF', random_state=0)
-lg = em.LogRegMatcher(name='LogReg', random_state=0)
-ln = em.LinRegMatcher(name='LinReg')
-nb = em.NBMatcher(name='NaiveBayes')
-
 
 
 feature_table = em.get_features_for_matching(A, B, validate_inferred_attr_types=False)
+
+# Remove the id comparisons
+feature_table = feature_table.drop([0, 1, 2, 3], axis=0)
+
 H = em.extract_feature_vecs(G, 
                             feature_table=feature_table, 
                             attrs_after='gold',
@@ -153,11 +149,10 @@ em.print_eval_summary(eval_result)
 ############################## Magellan with RF ###############################
 ############################## Magellan with RF ###############################
 ############################## Magellan with RF ###############################
-IJ = em.split_train_test(G, train_proportion=0.01, random_state=0)
+IJ = em.split_train_test(G, train_proportion=0.001, random_state=0)
 I = IJ['train']
 J = IJ['test']
 
-J = em.split_train_test(G, train_proportion=0.01, random_state=0)
 
 
 result = em.select_matcher([rf], table=H, 

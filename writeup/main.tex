@@ -152,15 +152,16 @@ This figure is a description of the F1 scores on the RESTAURANTS dataset. The ba
 \begin{figure}[H]
 \centering
 \includegraphics[width=3in]{figures/figure_2_barplot.png}
-\caption{Precision vs Recall Barplot}
+\caption{Precision vs Recall Barplot. Precision is on Left, Recall is on Right.}
 \label{fig:restaurants-png}
 \end{figure}
 
+Figure \ref{fig:restaurants-png} depicts the Precision vs Recall graph for EMSS, Magellan and Dedupe.io on the ABT\_BUY dataset. Base Magellan has some strange performance where it lists both Precision and Recall as 1. \\
 
 \noindent\fbox{
     \parbox{\columnwidth}{
     	\centering
-        \textit{EMSS is equivalent to Magellan on the ABT\_BUY dataset and is superior to Dedupe.io in terms of recall on low training samples. (n=20)}
+        \textit{EMSS outperforms Dedupe.io on the ABT\_BUY dataset when a low number of training samples are used. (n=20)}
     }
 }
 \\\\
