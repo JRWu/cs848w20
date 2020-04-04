@@ -18,9 +18,29 @@ git submodule init
 git submodule update
 ```
 
-3. TODO: Add instructions on how to run our software, and then the comparable other software(s).
+3. Run & Evaluate Magellan on RESTAURANTS and ABT_BUY
+```
+# Shell into the magellan container & set the paths
+make magellan
+bash /magellan/entrypoint.sh
 
-4. 
+# This step evaluates baseline magellan on RESTAURANTS
+python /src/running_magellan.py
+
+# This step evaluates EMSS magellan on RESTAURANTS
+python /src/active_magellan.py
+
+# This step evaluates baseline & EMSS magellan on ABT_BUY
+python /src/active_magellan_buy_dataset.py
+
+```
+
+4. Run & Evaluate Dedupe.io on ABT_BUY
+```
+make dedupe
+python /src/link_example/record_linkage_example.py
+```
+
 
 
 
